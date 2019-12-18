@@ -71,7 +71,7 @@ class SimpleTree<E> implements Tree<E> {
     public Optional<Leaf<E>> find(E e) {
         Leaf<E> result = search(root, new Leaf<>(e));
 
-        if (e.equals(result.getElement())) {
+        if (e.equals(result.element)) {
             return Optional.of(result);
         }
         return Optional.empty();
@@ -91,20 +91,11 @@ class SimpleTree<E> implements Tree<E> {
             this.element = element;
         }
 
-        E getElement() {
-            return element;
-        }
-
         @Override
         public int compareTo(Object obj) {
             Leaf<E> node = (Leaf<E>) obj;
 
             return this.hashCode() - node.hashCode();
-        }
-
-        @Override
-        public int hashCode() {
-            return 31 * 17 + element.hashCode();
         }
     }
 }
