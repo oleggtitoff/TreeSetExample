@@ -3,6 +3,7 @@ package ua.training.model.entity;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 class SimpleTree<E> implements Tree<E> {
     private Leaf<E> root;
@@ -67,8 +68,13 @@ class SimpleTree<E> implements Tree<E> {
     }
 
     @Override
-    public Leaf find(E e) {
-        return null;
+    public Optional<Leaf<E>> find(E e) {
+        Leaf<E> result = search(root, new Leaf<>(e));
+
+        if (e.equals(result.getElement())) {
+            return Optional.of(result);
+        }
+        return Optional.empty();
     }
 
     @Override
@@ -81,11 +87,11 @@ class SimpleTree<E> implements Tree<E> {
         private Leaf<E> left;
         private E element;
 
-        public Leaf(E element) {
+        Leaf(E element) {
             this.element = element;
         }
 
-        public E getElement() {
+        E getElement() {
             return element;
         }
 
