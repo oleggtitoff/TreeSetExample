@@ -19,6 +19,12 @@ class SimpleTree<E> implements Tree<E> {
         return false;
     }
 
+    private boolean initRootLeaf(final E e) {
+        root.element = e;
+        size++;
+        return true;
+    }
+
     @Override
     public List<E> get() {
         return null;
