@@ -25,6 +25,23 @@ class SimpleTree<E> implements Tree<E> {
         return true;
     }
 
+    private Leaf<E> findLastLeaf(final Leaf<E> oldLeaf, final Leaf<E> newLeaf) {
+        Leaf<E> lastLeaf = oldLeaf;
+        int compare = oldLeaf.compareTo(newLeaf);
+
+        if (compare < 0 && oldLeaf.right != null) {
+            lastLeaf = findLastLeaf(oldLeaf.right, newLeaf);
+            return lastLeaf;
+        } else if (compare > 0 && oldLeaf.left != null) {
+            lastLeaf = findLastLeaf(oldLeaf.left, newLeaf);
+            return lastLeaf;
+        } else if (compare == 0) {
+            return null;
+        }
+
+        return lastLeaf;
+    }
+
     @Override
     public List<E> get() {
         return null;
