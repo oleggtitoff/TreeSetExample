@@ -40,6 +40,7 @@ class SimpleTree<E> implements Tree<E> {
     }
 
     class Leaf<E> implements Comparable<E> {
+        private Leaf<E> parent;
         private Leaf<E> right;
         private Leaf<E> left;
         private E element;
