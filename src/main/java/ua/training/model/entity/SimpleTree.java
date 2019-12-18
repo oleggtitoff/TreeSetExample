@@ -1,7 +1,7 @@
-package ua.training;
+package ua.training.model.entity;
 
-public class SimpleTree {
-    private class Leaf<E> implements Comparable<E> {
+class SimpleTree {
+    class Leaf<E> implements Comparable<E> {
         private Leaf<E> right;
         private Leaf<E> left;
         private E element;
