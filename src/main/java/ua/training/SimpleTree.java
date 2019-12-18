@@ -6,5 +6,12 @@ public class SimpleTree {
         private Leaf<E> left;
         private E element;
 
+        public Leaf(E element) {
+            this.element = element;
+        }
+
+        public E getElement() {
+            return element;
+        }
     }
 }
