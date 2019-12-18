@@ -64,7 +64,7 @@ class SimpleTree<E> implements Tree<E> {
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
