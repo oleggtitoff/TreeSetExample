@@ -21,11 +21,12 @@ class SimpleTree<E> implements Tree<E> {
         }
 
         Leaf<E> newNode = new Leaf<>(e);
-        Leaf<E> lastNode = findLastLeaf(root, newNode);
+        Leaf<E> lastNode = search(root, newNode);
+        int compare = lastNode.compareTo(newNode);
 
-        if (lastNode == null) {
+        if (compare == 0) {
             return false;
-        } else if (lastNode.compareTo(newNode) < 0) {
+        } else if (compare < 0) {
             lastNode.right = newNode;
         } else {
             lastNode.left = newNode;
@@ -41,15 +42,15 @@ class SimpleTree<E> implements Tree<E> {
         return true;
     }
 
-    private Leaf<E> findLastLeaf(final Leaf<E> oldLeaf, final Leaf<E> newLeaf) {
-        int compare = oldLeaf.compareTo(newLeaf);
+    private Leaf<E> search(final Leaf<E> oldLeaf, final Leaf<E> target) {
+        int compare = oldLeaf.compareTo(target);
 
         if (compare < 0 && oldLeaf.right != null) {
-            return findLastLeaf(oldLeaf.right, newLeaf);
+            return search(oldLeaf.right, target);
         } else if (compare > 0 && oldLeaf.left != null) {
-            return findLastLeaf(oldLeaf.left, newLeaf);
+            return search(oldLeaf.left, target);
         } else if (compare == 0) {
-            return null;
+            return target;
         }
 
         return oldLeaf;
