@@ -16,7 +16,23 @@ class SimpleTree<E> implements Tree<E> {
 
     @Override
     public boolean add(E e) {
-        return false;
+        if (size == 0) {
+            return initRootLeaf(e);
+        }
+
+        Leaf<E> newNode = new Leaf<>(e);
+        Leaf<E> lastNode = findLastLeaf(root, newNode);
+
+        if (lastNode == null) {
+            return false;
+        } else if (lastNode.compareTo(newNode) < 0) {
+            lastNode.right = newNode;
+        } else {
+            lastNode.left = newNode;
+        }
+
+        size++;
+        return true;
     }
 
     private boolean initRootLeaf(final E e) {
@@ -26,20 +42,17 @@ class SimpleTree<E> implements Tree<E> {
     }
 
     private Leaf<E> findLastLeaf(final Leaf<E> oldLeaf, final Leaf<E> newLeaf) {
-        Leaf<E> lastLeaf = oldLeaf;
         int compare = oldLeaf.compareTo(newLeaf);
 
         if (compare < 0 && oldLeaf.right != null) {
-            lastLeaf = findLastLeaf(oldLeaf.right, newLeaf);
-            return lastLeaf;
+            return findLastLeaf(oldLeaf.right, newLeaf);
         } else if (compare > 0 && oldLeaf.left != null) {
-            lastLeaf = findLastLeaf(oldLeaf.left, newLeaf);
-            return lastLeaf;
+            return findLastLeaf(oldLeaf.left, newLeaf);
         } else if (compare == 0) {
             return null;
         }
 
-        return lastLeaf;
+        return oldLeaf;
     }
 
     @Override
