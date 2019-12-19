@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-class SimpleTree<E> implements Tree<E> {
+public class SimpleTree<E> implements Tree<E> {
     private Leaf<E> root = new Leaf<>(null);
     private int size = 0;
 
@@ -148,7 +148,7 @@ class SimpleTree<E> implements Tree<E> {
         }
     }
 
-    class Leaf<E> implements Comparable<E> {
+    public class Leaf<E> implements Comparable<E> {
         private Leaf<E> parent;
         private Leaf<E> right;
         private Leaf<E> left;
@@ -156,6 +156,15 @@ class SimpleTree<E> implements Tree<E> {
 
         Leaf(E element) {
             this.element = element;
+        }
+
+        public E getElement() {
+            return element;
+        }
+
+        @Override
+        public int hashCode() {
+            return element.hashCode();
         }
 
         @Override
