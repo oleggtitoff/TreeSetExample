@@ -80,7 +80,21 @@ class SimpleTree<E> implements Tree<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new Iterator<E>() {
+            int count = 0;
+            Iterator<Leaf<E>> iterator = new TreeIterator<>(root);
+
+            @Override
+            public boolean hasNext() {
+                return iterator.hasNext();
+            }
+
+            @Override
+            public E next() {
+                count++;
+                return iterator.next().element;
+            }
+        };
     }
 
     private class TreeIterator<E> implements Iterator<Leaf<E>> {
