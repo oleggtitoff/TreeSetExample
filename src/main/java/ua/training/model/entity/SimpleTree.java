@@ -6,14 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 class SimpleTree<E> implements Tree<E> {
-    private Leaf<E> root;
-    private List<E> list;
+    private Leaf<E> root = new Leaf<>(null);
     private int size = 0;
-
-    public SimpleTree() {
-        list = new LinkedList<>();
-        root = new Leaf<>(null);
-    }
 
     @Override
     public boolean add(E e) {
@@ -60,7 +54,12 @@ class SimpleTree<E> implements Tree<E> {
 
     @Override
     public List<E> get() {
-        return null;
+        List<E> list = new LinkedList<>();
+
+        for (E e : this) {
+            list.add(e);
+        }
+        return list;
     }
 
     @Override
