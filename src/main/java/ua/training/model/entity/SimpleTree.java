@@ -33,6 +33,7 @@ class SimpleTree<E> implements Tree<E> {
             lastNode.left = newNode;
         }
 
+        newNode.parent = lastNode;
         size++;
         return true;
     }
@@ -82,7 +83,60 @@ class SimpleTree<E> implements Tree<E> {
         return null;
     }
 
+    private class TreeIterator<E> implements Iterator<Leaf<E>> {
+        private Leaf<E> next;
+
+        private TreeIterator(Leaf<E> root) {
+            next = root;
+            goToLeftmost();
+        }
+
+        private void goToLeftmost() {
+            while (next.left != null) {
+                next = next.left;
+            }
+        }
+
+        @Override
+        public boolean hasNext() {
+            return next != null && next.element != null;
+        }
+
+        @Override
+        public Leaf<E> next() {
+            Leaf<E> leaf = next;
+
+            if (next.right != null) {
+                goRight();
+            } else {
+                goUp();
+            }
+            return leaf;
+        }
+
+        private void goRight() {
+            next = next.right;
+            while (next.left != null) {
+                next = next.left;
+            }
+        }
+
+        private void goUp() {
+            while (true) {
+                if (next.parent == null) {
+                    next = null;
+                    return;
+                } else if (next.parent.left == next) {
+                    next = next.parent;
+                    return;
+                }
+                next = next.parent;
+            }
+        }
+    }
+
     class Leaf<E> implements Comparable<E> {
+        private Leaf<E> parent;
         private Leaf<E> right;
         private Leaf<E> left;
         private E element;
